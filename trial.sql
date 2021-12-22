@@ -1,66 +1,47 @@
-create table models(
-    id integer not null auto_increment primary key,
-    model_desc varchar(128) not null,
-    model_loc varchar(128) not null ,
-    data_loc varchar(128) not null ,
-    pred_loc varchar(128),
-    createdAt timestamp not null default CURRENT_TIMESTAMP
-);
 CREATE TABLE modelpreds(
    id integer not null auto_increment primary key,
-   modelnum                  int NOT NULL
-  ,Zone                     VARCHAR(130)
-  ,City                     VARCHAR(130)
-  ,Dealer_Group             VARCHAR(130)
-  ,Dealer                   VARCHAR(130)
-  ,Enquiry_No               VARCHAR(130)
-  ,Enquiry_Date             VARCHAR(130)
-  ,Valuation_Date           VARCHAR(130)
-  ,Customer_Name            VARCHAR(130)
-  ,Contact_Person_Name      VARCHAR(130)
-  ,Contact_Person_No        VARCHAR(130)
-  ,Make                     VARCHAR(130)
-  ,Model                    VARCHAR(130)
-  ,Grade                    VARCHAR(130)
-  ,Suffix                   VARCHAR(130)
-  ,Registration_No          VARCHAR(130)
-  ,Manufacturing_Year       VARCHAR(130)
-  ,Source_Type              VARCHAR(130)
-  ,Source_Name              VARCHAR(130)
-  ,PO_Name                  VARCHAR(130)
-  ,Enquiry_Status_Reasoning VARCHAR(130)
-  ,Last_Followup_Date       VARCHAR(130)
-  ,Last_Followup_Remark     VARCHAR(130)
-  ,Next_Followup_Date       VARCHAR(130)
-  ,Lead_Time_In_Days        VARCHAR(130)
-  ,Reason_for_selling       VARCHAR(130)
-  ,NC_Trade_in              VARCHAR(130)
-  ,NC_Enquiry_No            VARCHAR(130)
-  ,NC_Enquiry_Date          VARCHAR(130)
-  ,NC_SO                    VARCHAR(130)
-  ,NC_Model                 VARCHAR(130)
-  ,NC_Enquiry_Status        VARCHAR(130)
-  ,NC_Followup_Remarks      VARCHAR(130)
-  ,NC_Dealer                VARCHAR(130)
-  ,Automated_Web_Enquiry    VARCHAR(130)
-  ,Purchase_Price           VARCHAR(130)
-  ,Enquiry_Status           VARCHAR(130)
-  ,Status                   VARCHAR(130)
-  ,Predicted_Class          VARCHAR(130)
-  ,Predicted_Prob0          VARCHAR(130)
-  ,Predicted_Prob1          VARCHAR(130)
-); 
-
-
-begin;
-INSERT INTO models(model_desc,model_loc,data_loc,pred_loc) VALUES ('Nandi Toyota Utrust All Branch-Purchase','UTrust_Purchase_DT_1.2.rds','Nandi Toyota UTrust All Branch-Purchase.csv','Nandi Toyota UTrust All Branch-Purchase - scored.csv'),
- ('Popular Bajaj Kochi-Sales','Bajaj_Sales_DT_1.1.rds','Popular Bajaj Kochi-Sales.csv','Popular Bajaj Kochi-Sales - scored.csv'),
- ('Popular Hyundai Kochi-New Car Sales','Hyundai Sales_DT_1.1.rds','Popular Hyundai Kochi-New Car Sales.csv','Popular Hyundai Kochi-New Car Sales - scored.csv'),
- ('Nandi Toyota Utrust All Branch-Non Trade-in','UTrust_NonTradeIn_DT_1.1.rds','Nandi Toyota Utrust All Branch-Non Trade-in.csv','Nandi Toyota Utrust All Branch-Non Trade-in - scored.csv'),
- ('Nandi Toyota UTrust All Branch- Trade-in','UTrust_TradeIn_DT_1.1.rds','Nandi Toyota Utrust All Branch-Trade-in.csv','Nandi Toyota Utrust All Branch-Trade-in - scored.csv');
-
-
-
+   modelnum                  int NOT NULL PRIMARY KEY
+  ,Zone                     VARCHAR(30)
+  ,City                     VARCHAR(30)
+  ,Dealer_Group             VARCHAR(30)
+  ,Dealer                   VARCHAR(30)
+  ,Enquiry_No               VARCHAR(30)
+  ,Enquiry_Date             VARCHAR(30)
+  ,Valuation_Date           VARCHAR(30)
+  ,Customer_Name            VARCHAR(30)
+  ,Contact_Person_Name      VARCHAR(30)
+  ,Contact_Person_No        VARCHAR(30)
+  ,Make                     VARCHAR(30)
+  ,Model                    VARCHAR(30)
+  ,Grade                    VARCHAR(30)
+  ,Suffix                   VARCHAR(30)
+  ,Registration_No          VARCHAR(30)
+  ,Manufacturing_Year       VARCHAR(30)
+  ,Source_Type              VARCHAR(30)
+  ,Source_Name              VARCHAR(30)
+  ,PO_Name                  VARCHAR(30)
+  ,Enquiry_Status_Reasoning VARCHAR(30)
+  ,Last_Followup_Date       VARCHAR(30)
+  ,Last_Followup_Remark     VARCHAR(30)
+  ,Next_Followup_Date       VARCHAR(30)
+  ,Lead_Time_In_Days        VARCHAR(30)
+  ,Reason_for_selling       VARCHAR(30)
+  ,NC_Trade_in              VARCHAR(30)
+  ,NC_Enquiry_No            VARCHAR(30)
+  ,NC_Enquiry_Date          VARCHAR(30)
+  ,NC_SO                    VARCHAR(30)
+  ,NC_Model                 VARCHAR(30)
+  ,NC_Enquiry_Status        VARCHAR(30)
+  ,NC_Followup_Remarks      VARCHAR(30)
+  ,NC_Dealer                VARCHAR(30)
+  ,Automated_Web_Enquiry    VARCHAR(30)
+  ,Purchase_Price           VARCHAR(30)
+  ,Enquiry_Status           VARCHAR(30)
+  ,Status                   VARCHAR(30)
+  ,Predicted_Class          VARCHAR(30)
+  ,Predicted_Prob0          VARCHAR(30)
+  ,Predicted_Prob1          VARCHAR(30)
+);  
 INSERT INTO modelpreds(modelnum,Zone,City,Dealer_Group,Dealer,Enquiry_No,Enquiry_Date,Valuation_Date,Customer_Name,Contact_Person_Name,Contact_Person_No,Make,Model,Grade,Suffix,Registration_No,Manufacturing_Year,Source_Type,Source_Name,PO_Name,Enquiry_Status_Reasoning,Last_Followup_Date,Last_Followup_Remark,Next_Followup_Date,Lead_Time_In_Days,Reason_for_selling,NC_Trade_in,NC_Enquiry_No,NC_Enquiry_Date,NC_SO,NC_Model,NC_Enquiry_Status,NC_Followup_Remarks,NC_Dealer,Automated_Web_Enquiry,Purchase_Price,Enquiry_Status,Status,Predicted_Class,Predicted_Prob0,Predicted_Prob1) VALUES (1,'SOUTH 2','BANGALORE','NANDI TOYOTA','NANDI U TRUST HOSUR ROAD','SE19004808','02/03/2019','NA','Mr. Anji','NA','9003668118','Maruti Suzuki','Swift Dzire','NA','NA','NA','2016','Website','Toyota U Trust','SACHIN M M','Selling decision postponed','04/03/2019','planing for 4 months','NA','2','NA','No','NA','NA','NA','NA','NA','NA','NA','Yes','0','Dropped','0','0','0.88097103','0.11902897');
 INSERT INTO modelpreds(modelnum,Zone,City,Dealer_Group,Dealer,Enquiry_No,Enquiry_Date,Valuation_Date,Customer_Name,Contact_Person_Name,Contact_Person_No,Make,Model,Grade,Suffix,Registration_No,Manufacturing_Year,Source_Type,Source_Name,PO_Name,Enquiry_Status_Reasoning,Last_Followup_Date,Last_Followup_Remark,Next_Followup_Date,Lead_Time_In_Days,Reason_for_selling,NC_Trade_in,NC_Enquiry_No,NC_Enquiry_Date,NC_SO,NC_Model,NC_Enquiry_Status,NC_Followup_Remarks,NC_Dealer,Automated_Web_Enquiry,Purchase_Price,Enquiry_Status,Status,Predicted_Class,Predicted_Prob0,Predicted_Prob1) VALUES (1,'SOUTH 2','BANGALORE','NANDI TOYOTA','NANDI U TRUST HOSUR ROAD','SE19004809','02/03/2019','NA','Mr. Somnath Basu','NA','9740566547','Tata','Indica Vista','NA','NA','NA','2008','Website','Toyota U Trust','ANOOP KUMAR B S','Incomplete/Incorrect Information','01/04/2019','customer not piking the call','NA','2','NA','No','NA','NA','NA','NA','NA','NA','NA','Yes','0','Dropped','0','0','0.88097103','0.11902897');
 INSERT INTO modelpreds(modelnum,Zone,City,Dealer_Group,Dealer,Enquiry_No,Enquiry_Date,Valuation_Date,Customer_Name,Contact_Person_Name,Contact_Person_No,Make,Model,Grade,Suffix,Registration_No,Manufacturing_Year,Source_Type,Source_Name,PO_Name,Enquiry_Status_Reasoning,Last_Followup_Date,Last_Followup_Remark,Next_Followup_Date,Lead_Time_In_Days,Reason_for_selling,NC_Trade_in,NC_Enquiry_No,NC_Enquiry_Date,NC_SO,NC_Model,NC_Enquiry_Status,NC_Followup_Remarks,NC_Dealer,Automated_Web_Enquiry,Purchase_Price,Enquiry_Status,Status,Predicted_Class,Predicted_Prob0,Predicted_Prob1) VALUES (1,'SOUTH 2','BANGALORE','NANDI TOYOTA','NANDI U TRUST HOSUR ROAD','SE19004847','03/03/2019','NA','Mr. Ramesh','NA','8095038215','Tata','Indica V2','NA','NA','NA','2012','Website','Toyota U Trust','MOHAMMED MUJAHID','Expecting Very High price','07/03/2019','HE IS EXPECTING 70000 FOR HIS CAR','NA','4','NA','No','NA','NA','NA','NA','NA','NA','NA','Yes','0','Dropped','0','0','0.88097103','0.11902897');
@@ -3527,5 +3508,3 @@ INSERT INTO modelpreds(modelnum,Zone,City,Dealer_Group,Dealer,Enquiry_No,Enquiry
 INSERT INTO modelpreds(modelnum,Zone,City,Dealer_Group,Dealer,Enquiry_No,Enquiry_Date,Valuation_Date,Customer_Name,Contact_Person_Name,Contact_Person_No,Make,Model,Grade,Suffix,Registration_No,Manufacturing_Year,Source_Type,Source_Name,PO_Name,Enquiry_Status_Reasoning,Last_Followup_Date,Last_Followup_Remark,Next_Followup_Date,Lead_Time_In_Days,Reason_for_selling,NC_Trade_in,NC_Enquiry_No,NC_Enquiry_Date,NC_SO,NC_Model,NC_Enquiry_Status,NC_Followup_Remarks,NC_Dealer,Automated_Web_Enquiry,Purchase_Price,Enquiry_Status,Status,Predicted_Class,Predicted_Prob0,Predicted_Prob1) VALUES (1,'SOUTH 2','BANGALORE','NANDI TOYOTA','Nandi U Trust Kanakpura','SE21005471','09-04-2021','09-04-2021','Mr. ASHOK B','NA','9916812343','Volkswagen','Ameo','1.2 MPI Highline','1708C : 1.2 MPI Highline','KA09MC6465','2016','Other Business Associates','Other Business Associates','UDAY B P','Used car purchased','10-04-2021','Transaction Closed','NA','0','No specific reason/Do not want to share the reason','No','NA','NA','NA','NA','NA','NA','NA','No','NA','Success','1','0','0.76829268','0.23170732');
 INSERT INTO modelpreds(modelnum,Zone,City,Dealer_Group,Dealer,Enquiry_No,Enquiry_Date,Valuation_Date,Customer_Name,Contact_Person_Name,Contact_Person_No,Make,Model,Grade,Suffix,Registration_No,Manufacturing_Year,Source_Type,Source_Name,PO_Name,Enquiry_Status_Reasoning,Last_Followup_Date,Last_Followup_Remark,Next_Followup_Date,Lead_Time_In_Days,Reason_for_selling,NC_Trade_in,NC_Enquiry_No,NC_Enquiry_Date,NC_SO,NC_Model,NC_Enquiry_Status,NC_Followup_Remarks,NC_Dealer,Automated_Web_Enquiry,Purchase_Price,Enquiry_Status,Status,Predicted_Class,Predicted_Prob0,Predicted_Prob1) VALUES (1,'SOUTH 2','BANGALORE','NANDI TOYOTA','Nandi U Trust Kanakpura','SE21008483','02-07-2021','02-07-2021','Mr. RIZWAN PATEL','NA','9886030454','Mercedes Benz','G-Class','G55 AMG','Z0901 : G55 AMG','KA05MZ9277','2019','Website','Car Trade','AMARNATH R','Used car purchased','05-07-2021','Transaction Closed','NA','0','No specific reason/Do not want to share the reason','No','NA','NA','NA','NA','NA','NA','NA','No','NA','Success','1','1','0.12698413','0.87301587');
 INSERT INTO modelpreds(modelnum,Zone,City,Dealer_Group,Dealer,Enquiry_No,Enquiry_Date,Valuation_Date,Customer_Name,Contact_Person_Name,Contact_Person_No,Make,Model,Grade,Suffix,Registration_No,Manufacturing_Year,Source_Type,Source_Name,PO_Name,Enquiry_Status_Reasoning,Last_Followup_Date,Last_Followup_Remark,Next_Followup_Date,Lead_Time_In_Days,Reason_for_selling,NC_Trade_in,NC_Enquiry_No,NC_Enquiry_Date,NC_SO,NC_Model,NC_Enquiry_Status,NC_Followup_Remarks,NC_Dealer,Automated_Web_Enquiry,Purchase_Price,Enquiry_Status,Status,Predicted_Class,Predicted_Prob0,Predicted_Prob1) VALUES (1,'SOUTH 2','BANGALORE','NANDI TOYOTA','Nandi Toyota U Trust Banaswadi','SE21006342','31/08/2021','31/08/2021','Mr. GOVIND REDDY','NA','9035553888','Toyota','INNOVA','GRAND LUXURY','TU : INNOVA CRYSTA 2.8 Z','KA03ND2255','2018','New Car Showroom','Nandi Queens Road','KEERTHIRAJ  K J','Used car purchased','31/08/2021','Transaction Closed','NA','0','No specific reason/Do not want to share the reason','No','NA','NA','NA','NA','NA','NA','NA','No','2100000','Success','1','1','0.12698413','0.87301587');
-
-commit;

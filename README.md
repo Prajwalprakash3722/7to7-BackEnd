@@ -75,3 +75,8 @@ Project Structure:
 - JWT
 - Bcrypt
 - Mongoose
+
+## Todo
+
+- [ ] Store data consistently
+- [ ] sqldf

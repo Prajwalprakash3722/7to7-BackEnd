@@ -31,4 +31,13 @@ Content-Type: application/json
 GET http://localhost:3001/api/models
 ### getting all models - csv
 GET http://localhost:3001/api/models/csv
+### getting all preds - json
+GET http://172.16.18.42:3001/api/models/preds/1
+### getting all models - csv 
+GET http://localhost:3001/api/models/preds/1/csv
+### getting all models - csv 
+GET http://localhost:3001/api/models/preds/1/csv
+
+### Stats - 
+GET http://localhost:3001/api/stats/1
 
