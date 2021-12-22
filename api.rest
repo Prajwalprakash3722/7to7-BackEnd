@@ -1,0 +1,21 @@
+### Frontend
+GET http://172.16.18.44:3000
+
+
+### test
+GET http://localhost:3001/test
+
+###
+GET http://localhost:3001/api/user
+
+### Get all users
+GET http://localhost:3001/api/users
+### make user
+POST http://localhost:3001/api/auth/register
+Content-Type: application/json
+
+{
+    "name":"Prajwal",
+    "email":"pp@foo.bar",
+    "password":"password"
+}
