@@ -10,9 +10,9 @@ exports.DB = class DB {
         if (DB.#dbconn === null) {
             const dbcon = mysql
                 .createPool({
-                    user: process.env.MYSQL_USER ?? "seven4seven",
+                    user: process.env.MYSQL_USER ?? "seven2seven",
                     password: process.env.MYSQL_PASSWORD ?? "no",
-                    database: process.env.DBNAME ?? "seven4seven",
+                    database: process.env.DBNAME ?? "seven2seven",
                     host: process.env.DBHOST ?? "localhost",
                 })
                 .promise();

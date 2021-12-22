@@ -27,4 +27,8 @@ Content-Type: application/json
     "email":"pp@foo.bar",
     "password":"password"
 }
+### getting all models 
+GET http://localhost:3001/api/models
+### getting all models - csv
+GET http://localhost:3001/api/models/csv
 

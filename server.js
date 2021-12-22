@@ -1,12 +1,14 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-const dotenv = require("dotenv").config();
+require("dotenv").config();
 const cors = require("cors");
+
 const app = express();
 const routes = require("./routes/index");
 app.use(bodyParser.json());
 app.use(cors());
+app.use(require('morgan')('dev'));
 const port = process.env.PORT || 3001;
 app.use(routes);
 
