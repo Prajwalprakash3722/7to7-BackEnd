@@ -122,7 +122,7 @@ const Models = {
         const results = await this.getPredsCSV(id);
         if (!results) return null;
         return new Promise((res, rej) => {
-            csv.parse(results, {}, (err, output) => {
+            csv.parse(results, {columns:true}, (err, output) => {
                 if (err) {
                     rej(err);
                     return;
@@ -140,7 +140,7 @@ const Models = {
         const results = await this.getDataCSV(id);
         if (!results) return null;
         return new Promise((res, rej) => {
-            csv.parse(results, {}, (err, output) => {
+            csv.parse(results, {columns:true}, (err, output) => {
                 if (err) {
                     rej(err);
                     return;

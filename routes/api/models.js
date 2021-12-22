@@ -62,7 +62,7 @@ router.post("/", async (req, res, next) => {
 router.get("/:id/csv", async (req, res, next) => {
     try {
         const id = req.params.id;
-        const models = await Models.getData(id);
+        const models = await Models.getDataCSV(id);
         res.send(models);
     } catch (e) {
         manageError(next, e);
