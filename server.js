@@ -11,14 +11,15 @@ const port = process.env.PORT || 3001;
 app.use(routes);
 
 const startServer = async () => {
+  const mdbURL = process.env.MONGO_URI || "mongodb://localhost:27017/<database_name>"
   await mongoose.connect(
-    process.env.MONGO_URI || "mongodb://localhost:27017/<database_name>",
+    mdbURL,
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     },
     () => {
-      console.log("Connected to MongoDB");
+      console.log("Connected to MongoDB",` on ${mdbURL}`);
       app.listen(port, () => {
         console.log(`Listening on port http://localhost:${port}`);
       });
