@@ -38,6 +38,14 @@ GET http://localhost:3001/api/models/preds/1/csv
 ### getting all models - csv 
 GET http://localhost:3001/api/models/preds/1/csv
 
-### Stats - 
-GET http://localhost:3001/api/stats/1
+### ADD
+POST http://localhost:3001/api/models
+Content-Type: application/json
 
+{
+    "model_desc":"Nandi Toyota UTrust All Branch- Trade-in",
+    "model_loc":"UTrust_TradeIn_DT_1.1.rds",
+    "data_loc":"Nandi Toyota Utrust All Branch-Trade-in.csv"
+}
+
+### 

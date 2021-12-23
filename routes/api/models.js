@@ -53,6 +53,8 @@ router.get("/:id", async (req, res, next) => {
 router.post("/", async (req, res, next) => {
     try {
         // const { } = req.body;
+        if(typeof req.body.model_desc !=='string' && typeof req.body.model_loc!=='string', typeof req.body.data_loc!=='string')
+            throw new StatusError('Incorrect data',400);
         const resp = await Models.addOne(req.body);
         res.json(resp)
     } catch (e) {

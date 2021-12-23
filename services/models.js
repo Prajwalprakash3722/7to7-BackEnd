@@ -3,37 +3,47 @@ const csv = require("csv");
 const fsp = require("fs/promises");
 const path = require("path");
 
-const fileLocation = path.join(__dirname,'..','old','LeadScore','Master_New.csv');
+const fileLocation = path.join(
+    __dirname,
+    "..",
+    "old",
+    "LeadScore",
+    "Master_New.csv"
+);
 
-const {exec} = require('child_process');
+const { exec } = require("child_process");
 
-
-const newfileLocation = (fn)=>path.join(__dirname,'..','old','LeadScore',fn);
+const newfileLocation = fn =>
+    path.join(__dirname, "..", "old", "LeadScore", fn);
 const Models = {
-
-    async updateFile(){
+    async updateFile() {
         const db = await DB.db();
         const [res] = await db.execute("select * from models");
         const updatedData = res;
         const data = await new Promise((res, rej) => {
-            csv.stringify(updatedData,{
-                columns:[
-                    {key:"id",header:"Modelid"},
-                    {key:"model_desc",header:"Description"},
-                    {key:"model_loc",header:"Model File"},
-                    {key:"data_loc",header:"Input Data File"},
-                    {key:"pred_loc",header:"Output Data File"},
-                    {key:"createdAt",header:"Date"},
-                ],header:true
-            }, (err, output) => {
-                if (err) {
-                    rej(err);
-                    return;
+            csv.stringify(
+                updatedData,
+                {
+                    columns: [
+                        { key: "id", header: "Modelid" },
+                        { key: "model_desc", header: "Description" },
+                        { key: "model_loc", header: "Model File" },
+                        { key: "data_loc", header: "Input Data File" },
+                        { key: "pred_loc", header: "Output Data File" },
+                        { key: "createdAt", header: "Date" },
+                    ],
+                    header: true,
+                },
+                (err, output) => {
+                    if (err) {
+                        rej(err);
+                        return;
+                    }
+                    res(output);
                 }
-                res(output)
-            });
+            );
         });
-        await fsp.writeFile(fileLocation,data);
+        await fsp.writeFile(fileLocation, data);
     },
     /**
      *
@@ -43,7 +53,7 @@ const Models = {
         const db = await DB.db();
         const [res] = await db.execute("select * from models");
         const updatedData = res;
-        await this.updateFile()
+        await this.updateFile();
         return res;
     },
     /**
@@ -53,7 +63,7 @@ const Models = {
     async getOne(id) {
         // const res = (await this.getAll()).filter(e => e["Modelid"] == id);
         const db = await DB.db();
-        const [res]=await db.execute('select * from models where id=?',[id]);
+        const [res] = await db.execute("select * from models where id=?", [id]);
 
         return res[0] ?? null;
     },
@@ -71,26 +81,26 @@ const Models = {
                 res(output);
             });
         });
-    },/**
-    *
-    * @param {number} id
-    */
-   async getDataCSV(id) {
-       const results = await this.getOne(id);
-       console.log("got", results);
-           console.log('')
-           const fp = path.join(
-               __dirname,
-               "..",
-               "old",
-               "LeadScore",
-               results.data_loc
-           );
-           const data = await fsp.readFile(fp);
+    },
+    /**
+     *
+     * @param {number} id
+     */ async getDataCSV(id) {
+        const results = await this.getOne(id);
+        console.log("got", results);
+        console.log("");
+        const fp = path.join(
+            __dirname,
+            "..",
+            "old",
+            "LeadScore",
+            results.data_loc
+        );
+        const data = await fsp.readFile(fp);
 
-           return data;
-       // TODO call R script and pull out the new preds here and update the db to store it
-   },
+        return data;
+        // TODO call R script and pull out the new preds here and update the db to store it
+    },
     /**
      *
      * @param {number} id
@@ -99,7 +109,7 @@ const Models = {
         const results = await this.getOne(id);
         console.log("got", results);
         if (results?.pred_loc) {
-            console.log('')
+            console.log("");
             const fp = path.join(
                 __dirname,
                 "..",
@@ -122,7 +132,7 @@ const Models = {
         const results = await this.getPredsCSV(id);
         if (!results) return null;
         return new Promise((res, rej) => {
-            csv.parse(results, {columns:true}, (err, output) => {
+            csv.parse(results, { columns: true }, (err, output) => {
                 if (err) {
                     rej(err);
                     return;
@@ -136,11 +146,11 @@ const Models = {
      * Get CSV and make
      * @param {number} id
      */
-     async getData(id) {
+    async getData(id) {
         const results = await this.getDataCSV(id);
         if (!results) return null;
         return new Promise((res, rej) => {
-            csv.parse(results, {columns:true}, (err, output) => {
+            csv.parse(results, { columns: true }, (err, output) => {
                 if (err) {
                     rej(err);
                     return;
@@ -152,37 +162,52 @@ const Models = {
     },
     async addOne(data) {
         const db = await DB.db();
-        const [res] = await db.execute("insert into models(model_desc,model_loc,data_loc,pred_loc) values(?,?,?,?)",[
-            data.model_desc,
-            data.model_loc,
-            data.data_loc,
-            data.pred_loc
-        ]);
-        
+        const [res] = await db.execute(
+            "insert into models(model_desc,model_loc,data_loc,pred_loc) values(?,?,?,?)",
+            [data.model_desc, data.model_loc, data.data_loc, null]
+        );
+
         const id = res.insertId;
 
         // update the file
-        await this.updateFile()
+        await this.updateFile();
 
         // call the subprocess
 
-        await new Promise((res,rej)=>{
-            const proc = exec(`Rscript ./old/LeadScore/NandiToyota_LeadScore.R ${id}`)
-            proc.on('error',(err)=>rej(err));
-            proc.on('exit',(err)=>res(err));
-            proc.on('close',(err)=>res(err));
-        })
+        const returnval = await new Promise((res, rej) => {
+            const proc = exec(
+                `Rscript ./old/LeadScore/NandiToyota_LeadScore.R ${id}`
+            );
 
-        const ppp = path.parse(res.data_loc);
-        ppp.base=undefined;ppp.name = `${ppp.name} - scored`
+            // for debug
+            let data = "";
+            proc.stdout.on("data", d => (data += d));
+
+            proc.on("error", err => {
+                rej(err);
+            });
+            proc.on("exit", err => {
+                res(err);
+            });
+            proc.on("close", err => {
+                res(err);
+            });
+        });
+
+        const ppp = path.parse(data.data_loc);
+        ppp.base = undefined;
+        ppp.name = `${ppp.name} - scored`;
         const newFileName = path.format(ppp);
 
+        const updateResults = await db.execute(
+            "update models set pred_loc=? where id=?",
+            [newFileName, id]
+        );
 
-        await db.execute('update table set pred_loc=? where id=?',[newFileName,id])
-        
-        return res;
+        const debugdata = await this.getOne(id);
+
+        return id;
     },
-    
 };
 
 module.exports.Models = Models;
