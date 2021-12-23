@@ -204,7 +204,7 @@ const Models = {
             [newFileName, id]
         );
 
-        const debugdata = await this.getOne(id);
+        // const debugdata = await this.getOne(id);
 
         return id;
     },
