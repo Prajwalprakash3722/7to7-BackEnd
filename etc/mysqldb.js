@@ -14,6 +14,7 @@ exports.DB = class DB {
                     password: process.env.MYSQL_PASSWORD ?? "no",
                     database: process.env.DBNAME ?? "seven2seven",
                     host: process.env.DBHOST ?? "localhost",
+                    port: process.env.DBPORT!==undefined?parseInt(process.env.DBPORT):3306
                 })
                 .promise();
             DB.#dbconn = dbcon;
