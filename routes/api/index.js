@@ -5,7 +5,7 @@ var auth = require("../../middleware/Auth");
 
 router.use("/auth", require("./auth"));
 router.use("/models", require("./models"));
-// router.use("/stats", require("./stats"));
+router.use("/files", require("./files"));
 
 router.get("/", (req, res) => {
     res.json({ message: "Working Perfectly Lol!!" });

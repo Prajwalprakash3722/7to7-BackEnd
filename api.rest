@@ -48,4 +48,11 @@ Content-Type: application/json
     "data_loc":"Nandi Toyota Utrust All Branch-Trade-in.csv"
 }
 
-### 
+### get list of models
+GET http://localhost:3001/api/files/models
+
+### get list of data
+GET http://localhost:3001/api/files/data
+
+### upload
+POST http://localhost:3001/api/files/
