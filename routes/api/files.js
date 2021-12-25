@@ -5,7 +5,8 @@ const fsp = require("fs/promises");
 const fs = require("fs");
 const path = require("path");
 const fileLocation = path.join(__dirname, "..", "..", "old", "LeadScore");
-const multer = require('multer')
+const multer = require('multer');
+const {authTokenMiddleware,authTokenQueryMiddleware} = require("../../middleware/Auth");
 const storage = multer.diskStorage({destination:fileLocation,
     filename:(req,file,cb)=>{
         let filename = file.originalname;
@@ -18,9 +19,9 @@ const storage = multer.diskStorage({destination:fileLocation,
         cb(null,filename);
     }
 });
-const fileFilter = multer.file
+// const fileFilter = multer.file;
 const upload = multer({storage});
-router.get("/", async (req, res, next) => {
+router.get("/", authTokenMiddleware,async (req, res, next) => {
     try {
         const data = await fsp.readdir(fileLocation, { withFileTypes: true });
         res.json(
@@ -33,7 +34,7 @@ router.get("/", async (req, res, next) => {
         manageError(next, e);
     }
 });
-router.get("/models", async (req, res, next) => {
+router.get("/models", authTokenMiddleware, async (req, res, next) => {
     try {
         const data = await fsp.readdir(fileLocation, { withFileTypes: true });
         res.json(
@@ -47,7 +48,7 @@ router.get("/models", async (req, res, next) => {
         manageError(next, e);
     }
 });
-router.get("/data", async (req, res, next) => {
+router.get("/data", authTokenMiddleware,async (req, res, next) => {
     try {
         const data = await fsp.readdir(fileLocation, { withFileTypes: true });
         res.json(
@@ -63,7 +64,7 @@ router.get("/data", async (req, res, next) => {
 });
 
 
-router.post('/',upload.single('misc'),async(req,res)=>{
+router.post('/',[authTokenQueryMiddleware,upload.single('misc')],async(req,res)=>{
     res.json({ok:true});
 });
 

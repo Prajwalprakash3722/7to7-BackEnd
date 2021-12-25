@@ -1,9 +1,10 @@
 const router = require("express").Router();
 const { StatusError, manageError } = require("../../etc/StatusError");
+const {authTokenMiddleware} = require("../../middleware/Auth");
 const { Models } = require("../../services/models");
 
 // TODO add auth
-router.get("/", async (req, res, next) => {
+router.get("/",authTokenMiddleware, async (req, res, next) => {
     try {
         const models = await Models.getAll();
         res.json(models);
@@ -12,7 +13,7 @@ router.get("/", async (req, res, next) => {
     }
 });
 
-router.get("/csv", async (req, res, next) => {
+router.get("/csv",authTokenMiddleware, async (req, res, next) => {
     try {
         const models = await Models.getAllCSV();
         res.send(models);
@@ -21,7 +22,7 @@ router.get("/csv", async (req, res, next) => {
     }
 });
 
-router.delete('/:id',async(req,res,next)=>{
+router.delete("/:id",authTokenMiddleware, async (req, res, next) => {
     try {
         const id = req.params.id;
         const resp = await Models.deleteOne(id);
@@ -29,9 +30,9 @@ router.delete('/:id',async(req,res,next)=>{
     } catch (e) {
         manageError(next, e);
     }
-})
+});
 
-router.get("/preds/:id/csv", async (req, res, next) => {
+router.get("/preds/:id/csv",authTokenMiddleware, async (req, res, next) => {
     try {
         const id = req.params.id;
         const models = await Models.getPredsCSV(id);
@@ -40,7 +41,7 @@ router.get("/preds/:id/csv", async (req, res, next) => {
         manageError(next, e);
     }
 });
-router.get("/preds/:id", async (req, res, next) => {
+router.get("/preds/:id",authTokenMiddleware, async (req, res, next) => {
     try {
         const id = req.params.id;
         const models = await Models.getPreds(id);
@@ -50,7 +51,7 @@ router.get("/preds/:id", async (req, res, next) => {
     }
 });
 
-router.get("/:id", async (req, res, next) => {
+router.get("/:id",authTokenMiddleware, async (req, res, next) => {
     try {
         const id = req.params.id;
         const models = await Models.getData(id);
@@ -60,18 +61,22 @@ router.get("/:id", async (req, res, next) => {
     }
 });
 
-router.post("/", async (req, res, next) => {
+router.post("/",authTokenMiddleware, async (req, res, next) => {
     try {
         // const { } = req.body;
-        if(typeof req.body.model_desc !=='string' && typeof req.body.model_loc!=='string', typeof req.body.data_loc!=='string')
-            throw new StatusError('Incorrect data',400);
+        if (
+            (typeof req.body.model_desc !== "string" &&
+                typeof req.body.model_loc !== "string",
+            typeof req.body.data_loc !== "string")
+        )
+            throw new StatusError("Incorrect data", 400);
         const resp = await Models.addOne(req.body);
-        res.json(resp)
+        res.json(resp);
     } catch (e) {
-        manageError(next,e);
+        manageError(next, e);
     }
 });
-router.get("/:id/csv", async (req, res, next) => {
+router.get("/:id/csv",authTokenMiddleware, async (req, res, next) => {
     try {
         const id = req.params.id;
         const models = await Models.getDataCSV(id);

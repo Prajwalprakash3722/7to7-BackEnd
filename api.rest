@@ -10,6 +10,7 @@ GET http://localhost:3001/api/user
 
 ### Get all users
 GET http://localhost:3001/api/users
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxYzQ3MjRkYmVjNzA3Mzg0MGUyYjg0OSIsImlhdCI6MTY0MDQ1MjYyN30.F7UxsS66PfJyiRRLjYQMVgxAXmazAUlF7TU1Ov32f20
 ### make user
 POST http://localhost:3001/api/auth/register
 Content-Type: application/json

@@ -1,7 +1,7 @@
 const express = require("express");
 const User = require("../../models/UserSchema");
 const router = express.Router();
-var auth = require("../../middleware/Auth");
+const {authTokenMiddleware} = require("../../middleware/Auth");
 
 router.use("/auth", require("./auth"));
 router.use("/models", require("./models"));
@@ -11,7 +11,7 @@ router.get("/", (req, res) => {
     res.json({ message: "Working Perfectly Lol!!" });
 });
 
-router.get("/user", auth, (req, res, next) => {
+router.get("/user", authTokenMiddleware, (req, res, next) => {
     const _id = req.user["id"];
     const user = User.find({ _id: _id }, (err, user) => {
         if (user) {
@@ -24,7 +24,7 @@ router.get("/user", auth, (req, res, next) => {
 
 router.get(
     "/users",
-    /* auth, */ (req, res, next) => {
+    authTokenMiddleware, (req, res, next) => {
         const _id = req.user?.["id"];
         if (_id === process.env.ADMIN_ID || true) {
             const users = User.find((err, users) => {
