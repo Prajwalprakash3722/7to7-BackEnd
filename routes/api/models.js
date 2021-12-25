@@ -3,7 +3,6 @@ const { StatusError, manageError } = require("../../etc/StatusError");
 const {authTokenMiddleware} = require("../../middleware/Auth");
 const { Models } = require("../../services/models");
 
-// TODO add auth
 router.get("/",authTokenMiddleware, async (req, res, next) => {
     try {
         const models = await Models.getAll();

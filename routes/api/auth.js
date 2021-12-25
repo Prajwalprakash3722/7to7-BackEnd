@@ -18,6 +18,7 @@ router.get("/", (req, res) => {
   res.json({ message: "Working Perfectly Lol!!" });
 });
 
+// TODO do we allow free registrations?
 router.post("/register", async (req, res) => {
   const { name, email, password } = req.body;
   const hashedPassword = hashpassword(password);
