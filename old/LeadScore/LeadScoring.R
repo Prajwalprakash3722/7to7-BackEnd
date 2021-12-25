@@ -45,7 +45,7 @@ print("Read 2")
   v=gsub(pattern = "\\.csv$","",b)
   x=paste(v,"- scored.csv")
   MasterFile$`Output Data File`[MasterFile$Modelid==var1]=x
-  write.csv(MasterFile,"Master_Models_Data.csv",row.names = F)
+  write.csv(MasterFile,masterfileName,row.names = F)
   write.csv(Test_Data,paste(v,"- scored.csv")) 
   
 #Print Confusion Matrix

@@ -21,6 +21,16 @@ router.get("/csv", async (req, res, next) => {
     }
 });
 
+router.delete('/:id',async(req,res,next)=>{
+    try {
+        const id = req.params.id;
+        const resp = await Models.deleteOne(id);
+        res.json(resp);
+    } catch (e) {
+        manageError(next, e);
+    }
+})
+
 router.get("/preds/:id/csv", async (req, res, next) => {
     try {
         const id = req.params.id;

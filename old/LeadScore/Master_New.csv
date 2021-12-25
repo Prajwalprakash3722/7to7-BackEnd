@@ -4,3 +4,4 @@ Modelid,Description,Model File,Input Data File,Output Data File,Date
 3,Popular Hyundai Kochi-New Car Sales,Hyundai Sales_DT_1.1.rds,Popular Hyundai Kochi-New Car Sales.csv,Popular Hyundai Kochi-New Car Sales - scored.csv,1640229458000
 4,Nandi Toyota Utrust All Branch-Non Trade-in,UTrust_NonTradeIn_DT_1.1.rds,Nandi Toyota Utrust All Branch-Non Trade-in.csv,Nandi Toyota Utrust All Branch-Non Trade-in - scored.csv,1640229458000
 5,Nandi Toyota UTrust All Branch- Trade-in,UTrust_TradeIn_DT_1.1.rds,Nandi Toyota Utrust All Branch-Trade-in.csv,Nandi Toyota Utrust All Branch-Trade-in - scored.csv,1640229601000
+7,All branch trade in,UTrust_TradeIn_DT_1.1.rds,Nandi Toyota Utrust All Branch-Trade-in.csv,Nandi Toyota Utrust All Branch-Trade-in - scored.csv,1640451099000

@@ -208,6 +208,15 @@ const Models = {
 
         return id;
     },
+    /**
+     * 
+     * @param {number} id 
+     */
+    async deleteOne(id){
+        const db = await DB.db();
+        const [res] = await db.execute('delete from models where id=?',[id]);
+        return res.affectedRows;
+    }
 };
 
 module.exports.Models = Models;
