@@ -2,10 +2,24 @@ const router = require("express").Router();
 const { DB } = require("../../etc/mysqldb");
 const { StatusError, manageError } = require("../../etc/StatusError");
 const fsp = require("fs/promises");
+const fs = require("fs");
 const path = require("path");
 const fileLocation = path.join(__dirname, "..", "..", "old", "LeadScore");
-
-const upload = require('multer')({dest:fileLocation});
+const multer = require('multer')
+const storage = multer.diskStorage({destination:fileLocation,
+    filename:(req,file,cb)=>{
+        let filename = file.originalname;
+        while(fs.existsSync(path.join(fileLocation,filename))){
+            const parsedLoc = path.parse(filename);
+            parsedLoc.base=undefined;
+            parsedLoc.name+='-another';
+            filename=path.format(parsedLoc);
+        }
+        cb(null,filename);
+    }
+});
+const fileFilter = multer.file
+const upload = multer({storage});
 router.get("/", async (req, res, next) => {
     try {
         const data = await fsp.readdir(fileLocation, { withFileTypes: true });
@@ -25,7 +39,8 @@ router.get("/models", async (req, res, next) => {
         res.json(
             data.filter(e => {
                 const ext= path.extname(e.name).toLowerCase();
-                console.log(ext);return ext==='.rds';
+                // console.log(ext);
+                return ext==='.rds';
             })
         );
     } catch (e) {
@@ -38,7 +53,8 @@ router.get("/data", async (req, res, next) => {
         res.json(
             data.filter(e => {
                 const ext= path.extname(e.name).toLowerCase();
-                console.log(ext);return ext==='.csv';
+                // console.log(ext);
+                return ext==='.csv';
             })
         );
     } catch (e) {
