@@ -1,18 +1,20 @@
 #Suppress Warnings
 options(warn = -1)
 
-setwd("/home/atreyab/Documents/Projects/seventoseven/7to7-BackEnd/old/LeadScore")
+setwd("/home/atreyab/Documents/Projects/Hackathons/seventoseven/7to7-BackEnd/old/LeadScore")
 
 #Load Package
-library(readxl)
-library(ggplot2)
-library(nnet)
-library(rpart)
-library(caret)
-library(dplyr)
-require(e1071)
-require(gmodels)
-require(tidyverse)
+suppressPackageStartupMessages( library(readxl))
+suppressPackageStartupMessages( library(ggplot2))
+suppressPackageStartupMessages( library(nnet))
+suppressPackageStartupMessages( library(rpart))
+suppressPackageStartupMessages( library(caret))
+suppressPackageStartupMessages( library(dplyr))
+suppressPackageStartupMessages( library(e1071))
+suppressPackageStartupMessages( library(gmodels))
+suppressPackageStartupMessages( library(tidyverse))
+suppressPackageStartupMessages( library(svDialogs))
+
 
 # me add
 print(MasterFile$`Model File`[MasterFile$Modelid==var1])
