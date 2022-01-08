@@ -10,7 +10,8 @@ create table models(
 
 
 begin;
-INSERT INTO models(model_desc,model_loc,data_loc,pred_loc) VALUES ('Nandi Toyota Utrust All Branch-Purchase','UTrust_Purchase_DT_1.2.rds','Nandi Toyota UTrust All Branch-Purchase.csv','Nandi Toyota UTrust All Branch-Purchase - scored.csv'),
+insert into models(model_desc, model_loc, data_loc,pred_loc, conf_loc) values('Nandi Toyota Utrust All Branch-Purchase','UTrust_Purchase_DT_1.2.rds','Nandi Toyota UTrust All Branch-Purchase.csv','Nandi Toyota UTrust All Branch-Purchase - scored.csv','Nandi Toyota UTrust All Branch-Purchase - confusion.csv');
+INSERT INTO models(model_desc,model_loc,data_loc,pred_loc) VALUES 
  ('Popular Bajaj Kochi-Sales','Bajaj_Sales_DT_1.1.rds','Popular Bajaj Kochi-Sales.csv','Popular Bajaj Kochi-Sales - scored.csv'),
  ('Popular Hyundai Kochi-New Car Sales','Hyundai Sales_DT_1.1.rds','Popular Hyundai Kochi-New Car Sales.csv','Popular Hyundai Kochi-New Car Sales - scored.csv'),
  ('Nandi Toyota Utrust All Branch-Non Trade-in','UTrust_NonTradeIn_DT_1.1.rds','Nandi Toyota Utrust All Branch-Non Trade-in.csv','Nandi Toyota Utrust All Branch-Non Trade-in - scored.csv');
