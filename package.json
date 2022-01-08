@@ -9,7 +9,8 @@
   "prettier": {
     "arrowParens": "avoid",
     "tabWidth": 4,
-    "semi": true
+    "semi": true,
+    "singleQuote": true
   },
   "keywords": [],
   "author": "",

@@ -50,6 +50,26 @@ router.get("/preds/:id",authTokenMiddleware, async (req, res, next) => {
     }
 });
 
+// confusion matrix
+router.get("/conf/:id",authTokenMiddleware, async (req, res, next) => {
+    try {
+        const id = req.params.id;
+        const models = await Models.getConfusion(id);
+        res.send(models);
+    } catch (e) {
+        manageError(next, e);
+    }
+});
+// confusion matrix
+router.get("/conf/:id/csv",authTokenMiddleware, async (req, res, next) => {
+    try {
+        const id = req.params.id;
+        const models = await Models.getConfusionCSV(id);
+        res.send(models);
+    } catch (e) {
+        manageError(next, e);
+    }
+});
 router.get("/:id",authTokenMiddleware, async (req, res, next) => {
     try {
         const id = req.params.id;
@@ -80,6 +100,18 @@ router.get("/:id/csv",authTokenMiddleware, async (req, res, next) => {
         const id = req.params.id;
         const models = await Models.getDataCSV(id);
         res.send(models);
+    } catch (e) {
+        manageError(next, e);
+    }
+});
+
+
+// refresh an entry matrix
+router.get("/revalidate/:id",authTokenMiddleware, async (req, res, next) => {
+    try {
+        const id = req.params.id;
+        const modelnum = await Models.revalidate(id);
+        res.send(modelnum);
     } catch (e) {
         manageError(next, e);
     }

@@ -33,7 +33,11 @@ GET http://localhost:3001/api/models
 ### getting all models - csv
 GET http://localhost:3001/api/models/csv
 ### getting all preds - json
-GET http://172.16.18.42:3001/api/models/preds/1
+GET http://localhost:3001/api/models/preds/1
+### getting all confoose - json
+GET http://localhost:3001/api/models/conf/12
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxYzQ3MjRkYmVjNzA3Mzg0MGUyYjg0OSIsImlhdCI6MTY0MTYyMDI1MX0.xw_mDJ0MHdXVKggyO6qN4IGqkQPs2l4b9iu3Vef5JYY
+
 ### getting all models - csv 
 GET http://localhost:3001/api/models/preds/1/csv
 ### getting all models - csv 
@@ -41,10 +45,11 @@ GET http://localhost:3001/api/models/preds/1/csv
 
 ### ADD
 POST http://localhost:3001/api/models
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxYzQ3MjRkYmVjNzA3Mzg0MGUyYjg0OSIsImlhdCI6MTY0MTYyMDI1MX0.xw_mDJ0MHdXVKggyO6qN4IGqkQPs2l4b9iu3Vef5JYY
 Content-Type: application/json
 
 {
-    "model_desc":"Nandi Toyota UTrust All Branch- Trade-in",
+    "model_desc":"Foo Barda",
     "model_loc":"UTrust_TradeIn_DT_1.1.rds",
     "data_loc":"Nandi Toyota Utrust All Branch-Trade-in.csv"
 }

@@ -61,7 +61,17 @@ print("Read 2")
   Actual=Test_Data$Status
   Predicted=Test_Data$`Predicted Class`
   CrossTable( Actual,Predicted)
+  # str(x)
   e=confusionMatrix(Predicted, Actual)
+
+
+  # write.csv(e,paste(v,"- scored.csv")) 
+  write.csv(as.matrix(e),paste(v,"- confusion.csv"))
+
+
+
+
+  # print(e)
   Accuracy=round(((e$table[1,1]+e$table[2,2])/(e$table[1,1]+e$table[1,2]+e$table[2,1]+e$table[2,2]))*100,2)
   cat("--------------------------------------")
   cat("\n")
@@ -81,27 +91,3 @@ print("Read 2")
   cat("F1-Score=",F1score,paste0("%"))
   cat("\n")
 
-
-#lift chart
-# pct=(sum(gain_table_Train$totalresp)/nrow(Training_Data))*100
-# p=ggplot()+
-#   geom_line(data=gain_table_Train ,aes(x=bucket*10,y=Gain, color="ModelSet"), size=0.5, show.legend = F)+
-#   geom_line(data=gain_table_Test ,aes(x=bucket*10,y=Gain, color="ValidationSet"), size=0.5, show.legend = F)+
-#   #geom_line(data=gain_table_Prediction ,aes(x=bucket*10,y=Gain, color="PredictionSet"), size=0.5, show.legend = F)+
-#   geom_polygon(data = data.frame(x = c(0, pct, 100, 0),
-#                                  y = c(0, 100, 100, 0)),
-#                aes(x = x, y = y), alpha = 0.1)+
-#   geom_line(data = data.frame(x = c(0, pct, 100, 0), y = c(0, 100, 100, 0)), aes(x=x,y=y,color="ideal"),size=1)+
-#   geom_line(data = data.frame(x = c(0,100),y = c(0,100)), aes(x=x,y=y, color="Random"),size=1)+
-#   xlab("%Enquiries")+
-#   ylab("%Conversion")+
-#   scale_x_continuous(breaks = seq(0,100,by=10))+
-#   scale_y_continuous(breaks = seq(0,100,by=10))+
-#   scale_colour_manual(name="",values = c("ideal"='darkgreen',"ModelSet"="blue","ValidationSet"="Black","Random"="red"))+
-#   scale_linetype_manual(name="", labels=c("ideal","ModelSet","ValidationSet","Random"),values = c("ideal"=1,"ModelSet"=1,"ValidationSet"=1,"Random"=1))+
-#   theme_bw()+
-#   theme(legend.key.size=unit(0.3,"lines"),legend.text = element_text(size = 12,colour = "black", face = "bold"),legend.position = "top",axis.text.x = element_text(angle = 0,hjust = 0,colour = "black", face = "bold"), axis.text.y = element_text(colour = "black", face = "bold",hjust = 0),axis.title.y = element_text(color = "black", size = 14, face = "bold"), axis.title.x = element_text(colour = "black",size = 14, face = "bold"),axis.text = element_text(face = "bold", size = 10))+
-#   theme(legend.key.size =  unit(0.2, "in"))
-# windows()
-# print(p)
-# 

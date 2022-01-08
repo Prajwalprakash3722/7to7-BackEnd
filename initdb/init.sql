@@ -4,6 +4,7 @@ create table models(
     model_loc varchar(128) not null ,
     data_loc varchar(128) not null ,
     pred_loc varchar(128),
+    conf_loc varchar(128),
     createdAt timestamp not null default CURRENT_TIMESTAMP
 );
 
