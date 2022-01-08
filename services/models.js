@@ -12,7 +12,6 @@ const fileLocation = path.join(
     'Master_New.csv'
 );
 
-
 /**
  * new File Location
  * @param {string} fn
@@ -184,7 +183,7 @@ const Models = {
                                 rej(err);
                                 return;
                             }
-                            res(output.map(e => [e[1], e[2]]));
+                            res(output.map(e => [parseInt(e[1]??0)||0, parseInt(e[2]??0)||0 ]));
                         }
                     );
                 })
@@ -224,7 +223,10 @@ const Models = {
         // get db and update file parallely
         const [db] = await Promise.all([DB.db(), this.updateFile()]);
         // await this.updateFile();
-        if (!data_loc) data_loc = await this.getOne(id).data_loc;
+        if (!data_loc) {
+            console.log('recalcing data loc for id',id)
+            data_loc = (await this.getOne(id)).data_loc;
+        }
         /** @type {number} return value of process */
         const returnval = await new Promise((res, rej) => {
             const proc = exec(
