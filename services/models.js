@@ -175,6 +175,7 @@ const Models = {
         return this.getConfusionCSV(id).then(
             results =>
                 new Promise((res, rej) => {
+                    if(results===null) {res(null);return}
                     csv.parse(
                         results,
                         { columns: false, from: 2 },
