@@ -28,7 +28,13 @@ services:
       - MYSQL_USER=seven2seven
       - MYSQL_PASSWORD
       - MYSQL_ROOT_PASSWORD
+  redis:
+    image: redis
+    restart: always
+    ports:
+      - 6379:6379
 
 volumes:
-  mysqldata:
-  mongodbdata:
+  mysqldata: null
+  mongodbdata: null
+  redisdata: null

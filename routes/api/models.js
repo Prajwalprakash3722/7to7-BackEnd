@@ -1,9 +1,13 @@
-const router = require("express").Router();
-const { StatusError, manageError } = require("../../etc/StatusError");
-const {authTokenMiddleware} = require("../../middleware/Auth");
-const { Models } = require("../../services/models");
+const router = require('express').Router();
+const { StatusError, manageError } = require('../../etc/StatusError');
+const { authTokenMiddleware } = require('../../middleware/Auth');
+const { Models } = require('../../services/models');
+const redis = require('redis');
 
-router.get("/",authTokenMiddleware, async (req, res, next) => {
+//? In Development Environment, we can leave the redis client configuration to the default, but when in prod env gotta change that.
+const client = redis.createClient();
+
+router.get('/', authTokenMiddleware, async (req, res, next) => {
     try {
         const models = await Models.getAll();
         res.json(models);
@@ -12,7 +16,7 @@ router.get("/",authTokenMiddleware, async (req, res, next) => {
     }
 });
 
-router.get("/csv",authTokenMiddleware, async (req, res, next) => {
+router.get('/csv', authTokenMiddleware, async (req, res, next) => {
     try {
         const models = await Models.getAllCSV();
         res.send(models);
@@ -21,7 +25,7 @@ router.get("/csv",authTokenMiddleware, async (req, res, next) => {
     }
 });
 
-router.delete("/:id",authTokenMiddleware, async (req, res, next) => {
+router.delete('/:id', authTokenMiddleware, async (req, res, next) => {
     try {
         const id = req.params.id;
         const resp = await Models.deleteOne(id);
@@ -31,7 +35,7 @@ router.delete("/:id",authTokenMiddleware, async (req, res, next) => {
     }
 });
 
-router.get("/preds/:id/csv",authTokenMiddleware, async (req, res, next) => {
+router.get('/preds/:id/csv', authTokenMiddleware, async (req, res, next) => {
     try {
         const id = req.params.id;
         const models = await Models.getPredsCSV(id);
@@ -40,7 +44,9 @@ router.get("/preds/:id/csv",authTokenMiddleware, async (req, res, next) => {
         manageError(next, e);
     }
 });
-router.get("/preds/:id",authTokenMiddleware, async (req, res, next) => {
+
+// TODO Redis Cache for this endpoint
+router.get('/preds/:id', authTokenMiddleware, async (req, res, next) => {
     try {
         const id = req.params.id;
         const models = await Models.getPreds(id);
@@ -51,7 +57,7 @@ router.get("/preds/:id",authTokenMiddleware, async (req, res, next) => {
 });
 
 // confusion matrix
-router.get("/conf/:id",authTokenMiddleware, async (req, res, next) => {
+router.get('/conf/:id', authTokenMiddleware, async (req, res, next) => {
     try {
         const id = req.params.id;
         const models = await Models.getConfusion(id);
@@ -61,7 +67,7 @@ router.get("/conf/:id",authTokenMiddleware, async (req, res, next) => {
     }
 });
 // confusion matrix
-router.get("/conf/:id/csv",authTokenMiddleware, async (req, res, next) => {
+router.get('/conf/:id/csv', authTokenMiddleware, async (req, res, next) => {
     try {
         const id = req.params.id;
         const models = await Models.getConfusionCSV(id);
@@ -70,7 +76,8 @@ router.get("/conf/:id/csv",authTokenMiddleware, async (req, res, next) => {
         manageError(next, e);
     }
 });
-router.get("/:id",authTokenMiddleware, async (req, res, next) => {
+// TODO Redis Cache for this endpoint
+router.get('/:id', authTokenMiddleware, async (req, res, next) => {
     try {
         const id = req.params.id;
         const models = await Models.getData(id);
@@ -80,22 +87,22 @@ router.get("/:id",authTokenMiddleware, async (req, res, next) => {
     }
 });
 
-router.post("/",authTokenMiddleware, async (req, res, next) => {
+router.post('/', authTokenMiddleware, async (req, res, next) => {
     try {
         // const { } = req.body;
         if (
-            (typeof req.body.model_desc !== "string" &&
-                typeof req.body.model_loc !== "string",
-            typeof req.body.data_loc !== "string")
+            (typeof req.body.model_desc !== 'string' &&
+                typeof req.body.model_loc !== 'string',
+            typeof req.body.data_loc !== 'string')
         )
-            throw new StatusError("Incorrect data", 400);
+            throw new StatusError('Incorrect data', 400);
         const resp = await Models.addOne(req.body);
         res.json(resp);
     } catch (e) {
         manageError(next, e);
     }
 });
-router.get("/:id/csv",authTokenMiddleware, async (req, res, next) => {
+router.get('/:id/csv', authTokenMiddleware, async (req, res, next) => {
     try {
         const id = req.params.id;
         const models = await Models.getDataCSV(id);
@@ -105,9 +112,8 @@ router.get("/:id/csv",authTokenMiddleware, async (req, res, next) => {
     }
 });
 
-
 // refresh an entry matrix
-router.get("/revalidate/:id",authTokenMiddleware, async (req, res, next) => {
+router.get('/revalidate/:id', authTokenMiddleware, async (req, res, next) => {
     try {
         const id = req.params.id;
         const modelnum = await Models.revalidate(id);

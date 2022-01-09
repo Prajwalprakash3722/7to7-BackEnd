@@ -29,14 +29,16 @@ Content-Type: application/json
     "password":"password"
 }
 ### getting all models 
-GET http://localhost:3001/api/models
+GET http://localhost:3001/api/models/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxYzI5ZTIxODI4M2IyMGJjOWJhMWFjOSIsImlhdCI6MTY0MTY2NTY1M30.lHlUh1BvakxeZZ5VKH5xKUI5wXClSvrJvtPaN_6pjps
 ### getting all models - csv
 GET http://localhost:3001/api/models/csv
 ### getting all preds - json
 GET http://localhost:3001/api/models/preds/1
+
 ### getting all confoose - json
 GET http://localhost:3001/api/models/conf/12
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxYzQ3MjRkYmVjNzA3Mzg0MGUyYjg0OSIsImlhdCI6MTY0MTYyMDI1MX0.xw_mDJ0MHdXVKggyO6qN4IGqkQPs2l4b9iu3Vef5JYY
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxYzI5ZTIxODI4M2IyMGJjOWJhMWFjOSIsImlhdCI6MTY0MTY0OTcyNX0.vxoCttZo5KJXiccMZ_EeHkDXU1OExYdDEaAgzBD30Zw
 
 ### getting all models - csv 
 GET http://localhost:3001/api/models/preds/1/csv
