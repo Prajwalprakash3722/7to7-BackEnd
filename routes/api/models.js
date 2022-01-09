@@ -3,9 +3,9 @@ const { StatusError, manageError } = require('../../etc/StatusError');
 const { authTokenMiddleware } = require('../../middleware/Auth');
 const { Models } = require('../../services/models');
 const redis = require('redis');
-
+const defExp = 6400;
 //? In Development Environment, we can leave the redis client configuration to the default, but when in prod env gotta change that.
-const client = redis.createClient();
+const redisClient = redis.createClient();
 
 router.get('/', authTokenMiddleware, async (req, res, next) => {
     try {
@@ -45,26 +45,44 @@ router.get('/preds/:id/csv', authTokenMiddleware, async (req, res, next) => {
     }
 });
 
-// TODO Redis Cache for this endpoint
+// * DONE Redis Cache for this endpoint
 router.get('/preds/:id', authTokenMiddleware, async (req, res, next) => {
-    try {
-        const id = req.params.id;
-        const models = await Models.getPreds(id);
-        res.send(models);
-    } catch (e) {
-        manageError(next, e);
-    }
+    redisClient.get(`preds${req.params.id}`, async (err, data) => {
+        if (data != null) {
+            console.log('Redis Cache Hit');
+            return res.json(JSON.parse(data));
+        } else {
+            try {
+                const id = req.params.id;
+                const models = await Models.getPreds(id);
+                redisClient.setex(`preds${id}`, defExp, JSON.stringify(models));
+                res.send(models);
+                console.log('Redis Cache Miss ');
+            } catch (e) {
+                manageError(next, e);
+            }
+        }
+    });
 });
 
 // confusion matrix
 router.get('/conf/:id', authTokenMiddleware, async (req, res, next) => {
-    try {
-        const id = req.params.id;
-        const models = await Models.getConfusion(id);
-        res.send(models);
-    } catch (e) {
-        manageError(next, e);
-    }
+    redisClient.get(`conf${req.params.id}`, async (err, data) => {
+        if (data != null) {
+            console.log('Redis Cache Hit');
+            return res.json(JSON.parse(data));
+        } else {
+            try {
+                const id = req.params.id;
+                const models = await Models.getConfusion(id);
+                redisClient.setex(`conf${id}`, defExp, JSON.stringify(models));
+                res.send(models);
+                console.log('Redis Cache Miss ');
+            } catch (e) {
+                manageError(next, e);
+            }
+        }
+    });
 });
 // confusion matrix
 router.get('/conf/:id/csv', authTokenMiddleware, async (req, res, next) => {
@@ -76,15 +94,24 @@ router.get('/conf/:id/csv', authTokenMiddleware, async (req, res, next) => {
         manageError(next, e);
     }
 });
-// TODO Redis Cache for this endpoint
+// * DONE Redis Cache for this endpoint
 router.get('/:id', authTokenMiddleware, async (req, res, next) => {
-    try {
-        const id = req.params.id;
-        const models = await Models.getData(id);
-        res.send(models);
-    } catch (e) {
-        manageError(next, e);
-    }
+    redisClient.get(`model${req.params.id}`, async (err, data) => {
+        if (data != null) {
+            console.log('Redis Cache Hit');
+            return res.json(JSON.parse(data));
+        } else {
+            try {
+                const id = req.params.id;
+                const models = await Models.getData(id);
+                redisClient.setex(`model${id}`, defExp, JSON.stringify(models));
+                res.send(models);
+                console.log('Redis Cache Miss ');
+            } catch (e) {
+                manageError(next, e);
+            }
+        }
+    });
 });
 
 router.post('/', authTokenMiddleware, async (req, res, next) => {
