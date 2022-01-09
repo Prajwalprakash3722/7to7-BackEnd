@@ -24,7 +24,7 @@ print(MasterFile$`Model File`[MasterFile$Modelid==var1])
   super_model <- readRDS(MasterFile$`Model File`[MasterFile$Modelid==var1])
 
 
-print("Read 2")
+# print("Read 2")
 
 #Read Prediction dataset
   Test_Data<-read_csv(MasterFile$`Input Data File`[MasterFile$Modelid==var1],show_col_types = FALSE)
@@ -54,13 +54,18 @@ print("Read 2")
   cat("\n")
   cat("Confusion Matrix of Prediction Dataset")
   cat("\n")
+
+  # filter warm for testing
   
+  Test_Data <- subset(Test_Data,Status!="2")
+  # print("Done")
   # Relevel Predicted Class
   Test_Data$`Predicted Class`=relevel(Test_Data$`Predicted Class`, ref = "1")
   
   Actual=Test_Data$Status
   Predicted=Test_Data$`Predicted Class`
-  CrossTable( Actual,Predicted)
+  # Not needed - this is just the output
+  # CrossTable( Actual,Predicted)
   # str(x)
   e=confusionMatrix(Predicted, Actual)
 
